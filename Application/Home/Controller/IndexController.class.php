@@ -89,14 +89,14 @@ class IndexController extends Controller {
     {
         $user = M("user");
         $taskid = $_GET['id'];
-        $s = $user->where("tasklist like '%".$taskid."%'")->find();
+        $email = session("email");
+        $s = $user->where("email = '".$email."' and tasklist like '%".$taskid."%'")->find();
         if(!empty($s)){
             $this->error("已经接取该任务");
         }
-        $email = session("email");
         $tasklist = $user->where("email = '".$email."'")->field("tasklist")->find();
         if(empty($tasklist['tasklist'])){
-            $t = $taskid;
+            $t = $taskid.",";
         }else{
             $t = $tasklist['tasklist'].$taskid. ",";
         }
