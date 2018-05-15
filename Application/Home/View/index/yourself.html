@@ -1,12 +1,73 @@
 <include file="./Application/Home/View/public/public_head.html" />
+<!--   <link rel="stylesheet" href="__PUBLIC__/css/custom.css">
+  <link rel="stylesheet" href="__PUBLIC__/css/iosOverlay.css">
+  <link rel="stylesheet" href="__PUBLIC__/css/prettify.css"> -->
 		<div class="jumbotron">
 		  <h1 class="display-4">个人中心</h1>
 		  <p class="lead">你可以看到自己的积分.</p>
 		  <hr class="my-4">
-		  <p class="lead">我的积分: <span style="font-size: 25px;">{$money}</span></p>
+		  <p class="lead">我的积分: <span style="font-size: 25px;"><b>{$money}</b></span></p>
 		</div>
+		<input type="hidden" class="info" value="{$info['0']}">
+		<foreach name="info" item="val" key="k">
+		<div class="container" style="margin-top: 2%;">
+		    <div class="row">
+			    <div class="col" style="padding-top: 1%;">
+			      {$val['taskname']}
+			    </div>
+			    <div class="col-6" style="padding-top: 1%;">
+				    <div class="progress">
+					   <div class="progress-bar" id="p{$val['id']}" role="progressbar" style="width: 0%;color:black;" >0%</div>
+					</div>
+			    </div>
+			    <div class="col" style="text-align: center;">
+			      <button type="button" class="btn btn-outline-primary" id="pbar{$val['id']}" onclick="pbar({$val['id']},{$val['money']})">签到 +{$val['money']}</button>
+			    </div>
+		    </div>
+		</div>
+		</foreach>
+		<div class="jumbotron" style="display: none;">
+		  <h1 class="lead" style="text-align:center;">暂无任务, <span onclick="go()">点击去接任务</span></h1>
+		</div>
+		<!-- <button id="checkMark" class="btn">完成任务</button> -->
 		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<!-- 	<script src="__PUBLIC__/js/iosOverlay.js"></script>
+		<script src="__PUBLIC__/js/spin.min.js"></script>
+		<script src="__PUBLIC__/js/prettify.js"></script>
+		<script src="__PUBLIC__/js/custom.js"></script> -->
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(function (){
+				if($(".info").val() == ''){
+					$(".container").css("display","none");
+					$(".jumbotron").css("display","block");
+				}
+			})
+			function pbar(k,money){
+				$("#p"+k).css("width","100%");
+				$("#p"+k).css("color","white");
+				$("#p"+k).html("100%");
+				$("#pbar"+k).attr("class","btn btn-outline-primary disabled");
+				$.ajax({
+				    type: 'POST',
+				    async:false,
+				    // timeout : 1500,
+				    url: "__URL__/saveTask",
+				    data: {id:k,money:money},
+				    success: function(data){
+				    	// window.location.href = window.location.href;
+				    	// history.go(0);
+				    },
+				});
+				setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+					window.location.reload();//页面刷新
+				},1000);
+			}
+			function go(){
+				window.location.href = "__URL__/tasklist";
+			}
+		</script>
 	</body>
 </html>

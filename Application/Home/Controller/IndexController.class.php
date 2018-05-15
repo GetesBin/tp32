@@ -70,9 +70,18 @@ class IndexController extends Controller {
     public function yourself()
     {
         $user = M("user");
+        $task = M("tasklist");
         $email = session("email");
-        $money = $user->where("email = '".$email."'")->field("money")->find();
-        $this->assign("money",$money['money']);
+        $data = $user->where("email = '".$email."'")->find();
+        $rdata = trim($data['tasklist'],",");
+        $arr = explode(",",$rdata);
+        $tasklist = $task->select();
+        $info = array();
+        foreach($arr as $k=>$v){
+            $info[] = $tasklist[(int)$v-1];
+        }
+        $this->assign("info",$info);
+        $this->assign("money",$data['money']);
         $this->display("yourself");
     }
     public function tasklist()
@@ -107,5 +116,23 @@ class IndexController extends Controller {
         }else{
             $this->error("接受成功~");
         }
+    }
+    public function saveTask()
+    {
+        $id = $_POST['id'];
+        $money = $_POST['money'];
+        $user = M("user");
+        $email = session("email");
+        $data = $user->where("email = '".$email."'")->find();
+        $rdata = trim($data['tasklist'],",");
+        $arr = explode(",",$rdata);
+        $str = array("tasklist"=>"");
+        $str['money'] = (int)$data['money']+(int)$money;
+        foreach ($arr as $key => $value) {
+            if($value != $id){
+                $str['tasklist'] .= $value.",";
+            }
+        }
+        $status = $user->where("email = '".$email."'")->save($str);
     }
 }

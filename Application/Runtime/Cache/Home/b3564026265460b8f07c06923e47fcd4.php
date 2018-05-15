@@ -9,25 +9,25 @@
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
 		  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-		    <a class="navbar-brand" href="/thinkphp323/index.php/Home/Index/index">首页</a>
+		    <a class="navbar-brand" href="/thinkphp323/index.php/home/Index/index">首页</a>
 		    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 		    <?php if(!session('email')){ ?>
 		      <li class="nav-item active">
-		        <a class="nav-link" href="/thinkphp323/index.php/Home/Index/login">登录<span class="sr-only">(current)</span></a>
+		        <a class="nav-link" href="/thinkphp323/index.php/home/Index/login">登录<span class="sr-only">(current)</span></a>
 		      </li>
 		    <?php }else{ ?>
 		    <li class="nav-item active">
-		        <a class="nav-link" href="/thinkphp323/index.php/Home/Index/yourself">个人中心<span class="sr-only">(current)</span></a>
+		        <a class="nav-link" href="/thinkphp323/index.php/home/Index/yourself">个人中心<span class="sr-only">(current)</span></a>
 		      </li>
 		    <?php } ?>
 		      <li class="nav-item active">
-		        <a class="nav-link" href="/thinkphp323/index.php/Home/Index/singup">注册<span class="sr-only">(current)</span></a>
+		        <a class="nav-link" href="/thinkphp323/index.php/home/Index/singup">注册<span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item active">
-		        <a class="nav-link" href="/thinkphp323/index.php/Home/Index/tasklist">任务列表<span class="sr-only">(current)</span></a>
+		        <a class="nav-link" href="/thinkphp323/index.php/home/Index/tasklist">任务列表<span class="sr-only">(current)</span></a>
 		      </li>
 		      <li class="nav-item active">
-		        <a class="nav-link" href="/thinkphp323/index.php/Home/Index/outlogin">退出登录<span class="sr-only">(current)</span></a>
+		        <a class="nav-link" href="/thinkphp323/index.php/home/Index/outlogin">退出登录<span class="sr-only">(current)</span></a>
 		      </li>
 		    </ul>
 		    <form class="form-inline my-2 my-lg-0">
@@ -52,7 +52,7 @@
 		      <td style="text-align:center;"><?php echo ($val['taskname']); ?></td>
 		      <td style="text-align:center;"><?php echo ($val['money']); ?></td>
 		      <td style="text-align:center;">
-		       <a id="accept" href="/thinkphp323/index.php/Home/Index/acceptTask?id=<?php echo ($k+1); ?>" class="btn btn-primary">接受</a>
+		       <a id="accept" href="/thinkphp323/index.php/home/index/acceptTask?id=<?php echo ($k+1); ?>" class="btn btn-primary">接受</a>
 		      </td>
 		    </tr><?php endforeach; endif; ?>
 		  </tbody>
@@ -73,7 +73,7 @@
 			function accept(id){
 				$.ajax(function(){
 					type:"post",
-					url:"/thinkphp323/index.php/Home/Index/acceptTask",
+					url:"/thinkphp323/index.php/home/index/acceptTask",
 					data:id,
 					dataType:"json",
 					success:function(data){
