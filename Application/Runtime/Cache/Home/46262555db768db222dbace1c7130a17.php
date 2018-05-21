@@ -39,23 +39,23 @@
 		    </form>
 		  </div>
 		</nav>
-		
-	    <table class="table table-hover">
+
+		<table class="table table-hover">
 		  <thead>
 		    <tr>
-		      <th scope="col">排名</th>
-		      <th scope="col">任务名称</th>
-		      <th scope="col">任务奖励</th>
-		      <th scope="col">操作</th>
+		      <th scope="col" style="text-align:center;">商品名称</th>
+		      <th scope="col" style="text-align:center;">商品价格</th>
+		      <th scope="col" style="text-align:center;">操作</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		<?php if(is_array($info)): foreach($info as $k=>$val): ?><tr>
-		      <th scope="row" class="bianhao<?php echo ($k+1); ?>"><?php echo ($k+1); ?></th>
-		      <td style="text-align:center;"><?php echo ($val['taskname']); ?></td>
-		      <td style="text-align:center;"><?php echo ($val['money']); ?></td>
+		<?php if(is_array($data)): foreach($data as $k=>$val): ?><tr>
+		      <td style="text-align:center;"><?php echo ($val['goods']); ?></td>
+		      <td style="text-align:center;"><?php echo ($val['price']); ?></td>
 		      <td style="text-align:center;">
-		       <a id="accept" href="/thinkphp323/index.php/home/index/acceptTask?id=<?php echo ($k+1); ?>" class="btn btn-primary">接受</a>
+		       <!-- <a id="accept" href="/thinkphp323/index.php/home/index/buy?id=<?php echo ($k+1); ?>" class="btn btn-primary">购买</a> -->
+		       <a id="buy" href="" onclick="buy(<?php echo ($k+1); ?>,<?php echo ($val['price']); ?>)" class="btn btn-primary">购买</a>
+
 		      </td>
 		    </tr><?php endforeach; endif; ?>
 		  </tbody>
@@ -63,30 +63,25 @@
 		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		<!-- <script src="http://www.jq22.com/jquery/jquery-2.1.1.js"></script> style='pointer-events: none;'-->
-		<!-- <script type="text/javascript">
-			str = <?php echo ($data); ?>
-			for (var i = 0; i <= <?php echo ($data); ?>.length; i++) {
-				if(str.indexOf($(".bianhao"+i).val() != -1)){
-
-				};
-			}
-		</script> -->
-		<!-- <script type="text/javascript">Uncaught SyntaxError: Unexpected token :
-			function accept(id){
-				$.ajax(function(){
-					type:"post",
-					url:"/thinkphp323/index.php/home/index/acceptTask",
-					data:id,
-					dataType:"json",
+		<script src="/thinkphp323/Public/js/jquery.min.js"></script>
+		<script type="text/javascript">
+			// if(<?php echo ($money); ?>)
+			var money = <?php echo ($money); ?>;
+			function buy(id,total){
+				if(money < total){
+					alert("积分不足");
+					return false;
+				}
+				$.ajax({
+					data:{id:id,total:total},
+					url:"/thinkphp323/index.php/home/index/buy",
+					type:"POST",
 					success:function(data){
-						alert(data)
+						// alert(data)
+						alert("购买成功");
 					},
-					error:function(err){
-						alert(err)
-					}
 				});
 			}
-		</script> -->
+		</script>
 	</body>
 </html>

@@ -135,4 +135,30 @@ class IndexController extends Controller {
         }
         $status = $user->where("email = '".$email."'")->save($str);
     }
+    public function store()
+    {
+        $store = M("store");
+        $user = M("user");
+        $data = $store->select();
+        $email = session("email");
+        $money = $user->where("email = '".$email."'")->field("money")->find();
+        $this->assign("money",$money['money']);
+        $this->assign("data",$data);
+        $this->display("store");
+    }
+    public function buy()
+    {
+        $user = M("user");
+        $email = session("email");
+        $money = $user->where("email = '".$email."'")->field("money")->find();
+        $m = (int)$money['money']-(int)$_POST['total'];
+        $data = array();
+        $data['money'] = $m;
+        $status = $user->where("email = '".$email."'")->save($data);
+        if($status){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

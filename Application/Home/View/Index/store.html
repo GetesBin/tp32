@@ -1,0 +1,49 @@
+<include file="./Application/Home/View/public/public_head.html" />
+
+		<table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th scope="col" style="text-align:center;">商品名称</th>
+		      <th scope="col" style="text-align:center;">商品价格</th>
+		      <th scope="col" style="text-align:center;">操作</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		<foreach name="data" item="val" key="k">	
+		    <tr>
+		      <td style="text-align:center;">{$val['goods']}</td>
+		      <td style="text-align:center;">{$val['price']}</td>
+		      <td style="text-align:center;">
+		       <!-- <a id="accept" href="__URL__/buy?id={$k+1}" class="btn btn-primary">购买</a> -->
+		       <a id="buy" href="" onclick="buy({$k+1},{$val['price']})" class="btn btn-primary">购买</a>
+
+		      </td>
+		    </tr>
+		</foreach>
+		  </tbody>
+		</table>
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<script type="text/javascript">
+			// if({$money})
+			var money = {$money};
+			function buy(id,total){
+				if(money < total){
+					alert("积分不足");
+					return false;
+				}
+				$.ajax({
+					data:{id:id,total:total},
+					url:"__URL__/buy",
+					type:"POST",
+					success:function(data){
+						// alert(data)
+						alert("购买成功");
+					},
+				});
+			}
+		</script>
+	</body>
+</html>
