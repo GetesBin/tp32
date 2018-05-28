@@ -2,9 +2,12 @@
 	<head>
 		<!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
 		<link rel="stylesheet" href="__ROOT__/bootstrap/css/bootstrap.min.css">
-		<title></title>
+		<link rel="shortcut icon" href="__PUBLIC__/images/GatesBinv1.png" type="image/x-icon" />
+		<link rel="icon" sizes="any" mask href="__PUBLIC__/images/GatesBinv1.png">
+		<title>My Self-Direct store</title>
 	</head>
 	<body>
+		<div style="margin-left: -50px;background-color: #F8F9FA;"><a href="__MODULE__/Index/index"><img src="__PUBLIC__/images/mylogo.png" alt=""></a></div>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
@@ -30,9 +33,11 @@
 		      <li class="nav-item active">
 		        <a class="nav-link" href="__MODULE__/Index/store">我的商店<span class="sr-only">(current)</span></a>
 		      </li>
-		      <li class="nav-item active">
-		        <a class="nav-link" href="__MODULE__/Index/outlogin">退出登录<span class="sr-only">(current)</span></a>
-		      </li>
+			<?php if(session('email')){ ?>
+			  <li class="nav-item active">
+				  <a class="nav-link" href="__MODULE__/Index/outlogin">退出登录<span class="sr-only">(current)</span></a>
+			  </li>
+			<?php } ?>
 		    </ul>
 		    <form class="form-inline my-2 my-lg-0">
 		      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
